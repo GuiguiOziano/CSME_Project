@@ -1,0 +1,50 @@
+#!/usr/bin/python
+# coding=utf-8
+ 
+# Ligne couleur Noire / blache pour True?
+ 
+# Les modules nécessaires sont importés et mis en place
+import RPi.GPIO as GPIO
+import time
+ 
+GPIO.setmode(GPIO.BOARD)
+ 
+# La broche d'entrée du capteur est déclarée.
+GPIO_PIN_G = 24
+GPIO_PIN_C = 32
+GPIO_PIN_D = 12
+
+GPIO.setup(GPIO_PIN_G, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(GPIO_PIN_C, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(GPIO_PIN_D, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+ 
+# Pause avant l'envoi du résultat (en secondes)
+delayTime = 0.5
+ 
+#print "Sensor-Test [Appuyez sur Ctrl + C pour terminer le test]"
+  
+# Boucle de programme principale
+try:
+        while True:
+            if GPIO.input(GPIO_PIN_G) == True:
+                print ("Le suiveur G se trouve sur une ligne")
+            else:
+                print ("Le suiveur G ne se trouve pas sur une ligne")
+             if GPIO.input(GPIO_PIN_C) == True:
+                print ("Le suiveur C se trouve sur une ligne")
+            else:
+                print ("Le suiveur C ne se trouve pas sur une ligne")           
+            if GPIO.input(GPIO_PIN_D) == True:
+                print ("Le suiveur D se trouve sur une ligne")
+            else:
+                print ("Le suiveur D ne se trouve pas sur une ligne")			
+			
+			
+			print ("---------------------------------------")
+ 
+            # Reset + Delay
+            time.sleep(delayTime)
+ 
+# réinitialisation de tous les GPIO en entrées
+except KeyboardInterrupt:
+        GPIO.cleanup()
